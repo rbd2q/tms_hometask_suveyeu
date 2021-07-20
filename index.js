@@ -1,22 +1,24 @@
-const requestURL = 'https://api.thecatapi.com/v1/images/search';
-const image = document.createElement('img');
-const container = document.getElementById('container');
+const sendRequest = require ('./request.js');
 
+function drawElems() {
+    let containerBlock = document.createElement('div');
+    containerBlock.classList.add('container');
 
-async function sendRequest() {
-    try {
-        const response = await fetch(requestURL);
-        const picture = await response.json();
-        const url = picture[0].url;
-        container.append(image);
-        image.src = url;
-    }
-    catch(error) {
-        console.log(error);
-    }
+    let titleBlock = document.createElement('h2');
+    titleBlock.innerHTML = 'Cats';
+
+    let imageBlock = document.createElement('img');
+    imageBlock.id = 'image';
+
+    document.body.append(containerBlock);
+    containerBlock.append(titleBlock, imageBlock);
 }
-sendRequest();
+drawElems();
 
-document.addEventListener('click', () => {
-    sendRequest();
-})
+
+function changeImageOnClick() {
+    document.addEventListener('click', () => {
+        sendRequest();
+    })
+}
+changeImageOnClick();
