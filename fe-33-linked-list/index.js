@@ -41,6 +41,33 @@ class LinkedList {
         }
         currentNode.next = newNode;
     }
+
+    remove(data) {
+        if (this.root === null) {
+            return
+        }
+
+        let current = this.root;
+        while (current.next) {
+            if (current.next.data === data) {
+                current.next = current.next.next;
+            } else {
+                current = current.next;
+            }
+        }
+    }
+
+    toArray() {
+        const Nodes = [];
+
+        let current = this.root;
+
+        while (current) {
+            Nodes.push(current);
+            current = current.next;
+        }
+        return Nodes;
+    }
 }
 
 const linkedList = new LinkedList();
@@ -53,6 +80,7 @@ linkedList.addFirst(0);
 linkedList.addLast(11);
 linkedList.addFirst('Hi');
 linkedList.addInCentre('CENTER', 2)
+linkedList.remove(11);
+linkedList.remove(4)
 
-
-console.log(JSON.stringify(linkedList.root));
+console.log(linkedList.toArray());
