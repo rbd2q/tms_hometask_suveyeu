@@ -6,9 +6,28 @@ class Node {
 }
 
 class LinkedList {
-    root = null;
+    constructor() {
+        this.root = null;
+    }
 
-    add(data) {
+    addFirst(data) {
+        this.root = new Node(data, this.root);
+    }
+
+    addInCentre(data, previousData) {
+        const newNode = new Node(data);
+
+        let previousNode = this.root;
+        while (previousNode.data !== previousData) {
+            previousNode = previousNode.next;
+        }
+
+        const nextNode = previousNode.next;
+        previousNode.next = newNode;
+        previousNode.next.next = nextNode;
+    }
+
+    addLast(data) {
         const newNode = new Node(data);
         if (this.root === null) {
            this.root = newNode;
@@ -20,16 +39,20 @@ class LinkedList {
         while (currentNode.next !== null) {
             currentNode = currentNode.next;
         }
-
         currentNode.next = newNode;
     }
 }
 
 const linkedList = new LinkedList();
 
-linkedList.add(1);
-linkedList.add(2);
-linkedList.add(3);
-linkedList.add(4);
+linkedList.addLast(1);
+linkedList.addLast(2);
+linkedList.addLast(3);
+linkedList.addLast(4);
+linkedList.addFirst(0);
+linkedList.addLast(11);
+linkedList.addFirst('Hi');
+linkedList.addInCentre('CENTER', 2)
+
 
 console.log(JSON.stringify(linkedList.root));
